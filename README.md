@@ -6,6 +6,45 @@ Tool Windows gắn proxy HTTP/SOCKS5 cho các giả lập Android (LDPlayer, Nox
 
 ---
 
+## 🚀 Điểm nổi bật
+
+### 🔄 Chuyển proxy `ip:port:user:pass` → `ip:port` để dùng với tool khác
+
+Đa số provider bán proxy dạng có authentication: `1.2.3.4:8080:myuser:mypass`. Nhưng nhiều tool (Selenium, ADBKit, browser extension cơ bản, automation script đơn giản) **không hỗ trợ proxy auth user/pass**, chỉ ăn được dạng `ip:port` không auth.
+
+VsisProxy giải quyết bằng cách spin **local proxy server** cho từng proxy gốc:
+
+```
+Proxy gốc (auth):    1.2.3.4:8080:myuser:mypass     ← provider cấp
+                              ↓
+Local listener:      192.168.1.10:39999             ← VsisProxy tự tạo
+                              ↓
+        Tool khác paste 192.168.1.10:39999 vào field "Proxy"
+        → Traffic tự được forward qua proxy gốc (kèm auth tự động)
+        → Không lộ user/pass cho tool đó
+```
+
+**Click button "📋 Copy all local"** ở Proxy page → toàn bộ URL `ip:port` không auth được copy 1 phát vào clipboard, paste sang Excel / config tool khác / proxy list của bot dùng ngay.
+
+### 🎯 Gắn proxy hàng loạt cho giả lập — Tự động hoặc thủ công
+
+Có 2 chế độ:
+
+**1. Tự động (Auto-assign)** — 1 tick chia đều proxy cho mọi giả lập online
+- Tick checkbox `Tự động gán proxy` ở toolbar
+- 50 emulator + 50 proxy → mỗi emu 1 proxy khác nhau (round-robin)
+- 50 emulator + 10 proxy → mỗi proxy gán cho 5 emu, đều
+- Tự gán cho emu mới khi Refresh, không cần thao tác lại
+
+**2. Thủ công (Picker dialog)** — chọn chính xác proxy nào cho emu nào
+- Click vào ô Proxy profile của 1 dòng → mở dialog có **search bar** + **danh sách sortable**
+- Search theo nhãn / IP / port / type — tìm trong danh sách 1000+ proxy không khó
+- Double-click row = chọn nhanh, có nút **Bỏ gán** để clear
+
+Cả 2 chế độ đều **hot-apply** ngay — không cần Stop / Start engine, ADB push tự chạy nền, app trong emu thấy proxy mới sau ~1 giây.
+
+---
+
 ## ✨ Tính năng
 
 ### Quản lý proxy

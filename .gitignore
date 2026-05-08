@@ -1,0 +1,5 @@
+# Binary release artifacts live as GitHub Release assets, not in git history.
+# The `version.json` manifest stays tracked so the in-app update checker can
+# read it via raw.githubusercontent.com.
+*.zip
+*-Setup-*.exe

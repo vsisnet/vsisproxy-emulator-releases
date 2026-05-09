@@ -1,7 +1,7 @@
 {
-  "version": "1.0.1",
-  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.1/VsisProxy-Setup-1.0.1.exe",
-  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.1/VsisProxy-1.0.1.zip",
+  "version": "1.0.2",
+  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.2/VsisProxy-Setup-1.0.2.exe",
+  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.2/VsisProxy-1.0.2.zip",
   "releasedAt": "2026-05-09",
-  "notes": "v1.0.1 — Auto-refresh emulator list\n\n- Danh sách giả lập tự refresh mỗi 10s, không cần click \"Load danh sách giả lập\" nữa\n- Manual button vẫn còn cho force-refresh ngay lập tức\n- Loading overlay chỉ hiện ở scan đầu tiên, không flicker mỗi tick"
+  "notes": "v1.0.2 — Multi-engine LDPlayer support + auto-check proxy\n\n- Hỗ trợ phát hiện đầy đủ emulator khi máy có nhiều phiên bản LDPlayer (4 / 5 / 9) — nhận diện qua VBox UUID matching, bỏ qua xung đột tên thư mục\n- Phát hiện port collision giữa các engine cùng idx, hiển thị 'Port conflict' status, vô hiệu hóa nút bind proxy cho row collision (tránh bind nhầm sang emu khác)\n- Khuyến cáo trong loading overlay: nên dùng 1 phiên bản LDPlayer để tránh xung đột ADB port\n- Auto-check proxy khi mở app — không còn 'Not live' lỗi do session cũ; chạy bất đồng bộ 8-concurrent, không đơ máy\n- Auto-refresh danh sách emu mỗi 10s\n- Sửa lỗi crash khi nhiều emu cùng serial 127.0.0.1:5555"
 }

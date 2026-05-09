@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
-  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.0/VsisProxy-Setup-1.0.0.exe",
-  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.0/VsisProxy-1.0.0.zip",
-  "releasedAt": "2026-05-08",
-  "notes": "Initial release.\n\n- ADB-based proxy injection (LDPlayer/Nox/MEmu/BlueStacks)\n- HttpProxyServer per-profile, hot-apply binding\n- Auto-enable LDPlayer ADB Debug + auto-reboot running instances\n- Leak prevention (DNS/QUIC/ICMP + IPv6) via WinDivert\n- Auto-assign proxy round-robin\n- Proxy picker dialog with search\n- Update checker + installer (.exe)"
+  "version": "1.0.1",
+  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.1/VsisProxy-Setup-1.0.1.exe",
+  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.1/VsisProxy-1.0.1.zip",
+  "releasedAt": "2026-05-09",
+  "notes": "v1.0.1 — Auto-refresh emulator list\n\n- Danh sách giả lập tự refresh mỗi 10s, không cần click \"Load danh sách giả lập\" nữa\n- Manual button vẫn còn cho force-refresh ngay lập tức\n- Loading overlay chỉ hiện ở scan đầu tiên, không flicker mỗi tick"
 }

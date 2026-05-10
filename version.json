@@ -1,7 +1,7 @@
 {
-  "version": "1.0.2",
-  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.2/VsisProxy-Setup-1.0.2.exe",
-  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.0.2/VsisProxy-1.0.2.zip",
+  "version": "1.1.0",
+  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.0/VsisProxy-Setup-1.1.0.exe",
+  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.0/VsisProxy-1.1.0.zip",
   "releasedAt": "2026-05-09",
-  "notes": "v1.0.2 — Multi-engine LDPlayer support + auto-check proxy\n\n- Hỗ trợ phát hiện đầy đủ emulator khi máy có nhiều phiên bản LDPlayer (4 / 5 / 9) — nhận diện qua VBox UUID matching, bỏ qua xung đột tên thư mục\n- Phát hiện port collision giữa các engine cùng idx, hiển thị 'Port conflict' status, vô hiệu hóa nút bind proxy cho row collision (tránh bind nhầm sang emu khác)\n- Khuyến cáo trong loading overlay: nên dùng 1 phiên bản LDPlayer để tránh xung đột ADB port\n- Auto-check proxy khi mở app — không còn 'Not live' lỗi do session cũ; chạy bất đồng bộ 8-concurrent, không đơ máy\n- Auto-refresh danh sách emu mỗi 10s\n- Sửa lỗi crash khi nhiều emu cùng serial 127.0.0.1:5555"
+  "notes": "v1.1.0 — Quản lý Game / App qua TUN engine\n\nTab mới 'Quản lý Game / App':\n- Route từng PC process (game, browser, app riêng) qua proxy theo process_name\n- Powered by sing-box 1.13.11 + wintun 0.14.1 (TUN-based, gigabit speed, 1 TCP state machine)\n- Process picker với search + ẩn process hệ thống mặc định\n- Bind proxy profile cho từng process — cùng UI picker dialog với emu\n- Hot-restart engine khi đổi binding\n\nDùng cho: PC game không có proxy native (Genshin, LoL launcher, MMO...), browser cần multi-proxy session, automation script không support auth, app trong VMware guest...\n\nTất cả chức năng v1.0.x giữ nguyên (ADB inject cho emu, leak prevention, auto-check proxy, port collision detection)."
 }

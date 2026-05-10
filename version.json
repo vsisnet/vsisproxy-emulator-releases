@@ -1,7 +1,7 @@
 {
-  "version": "1.1.1",
-  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.1/VsisProxy-Setup-1.1.1.exe",
-  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.1/VsisProxy-1.1.1.zip",
+  "version": "1.1.2",
+  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.2/VsisProxy-Setup-1.1.2.exe",
+  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.2/VsisProxy-1.1.2.zip",
   "releasedAt": "2026-05-10",
-  "notes": "v1.1.1 — Hotfix: ProcessPickerDialog crash\n\nFix: app tự tắt khi bấm 'Thêm process' ở tab Quản lý Game / App. Nguyên nhân: XAML loader fire Checked event của 'Ẩn process hệ thống' checkbox trước khi DataGrid init xong → NullReferenceException → app crash.\n\nNếu đang dùng v1.1.0, hãy update lên 1.1.1 để dùng tính năng Game / App."
+  "notes": "v1.1.2 — Fix TUN engine: chrome / firefox giờ thật sự đổi IP\n\nTab Quản lý Game / App ở v1.1.1 không đổi được IP cho browser dù sing-box báo running. Nguyên nhân là chuỗi 5 lỗi config liên hoàn trong sing-box 1.13:\n\n• Inbound `sniff:true` đã bị remove → sing-box exit FATAL ngay khi parse → wintun không tạo. Migrated sang route action `sniff`.\n• UDP/QUIC từ chrome bị `reject` ở gVisor stack nhưng không emit ICMP unreachable → Chrome bám QUIC mãi, không fallback TCP. Thêm Windows Firewall block UDP/443 khi TUN chạy → kernel gửi ICMP thật → Chrome fallback < 1s.\n• `auto_route` hijack system DNS thành 172.19.0.2:53 (TUN peer) nhưng không có internal DNS resolver → mọi DNS query rớt vào hố → 'mất kết nối'. Thêm `dns` block với 1.1.1.1 + route action `hijack-dns`.\n• `detour: direct` trên DNS server bị sing-box 1.13 reject 'makes no sense' → bỏ detour.\n• IPv6 trên TUN inbound gây svchost loop query → chỉ giữ IPv4, IPv6 từ process pinned vẫn block bằng route rule.\n\nThêm UI: nút 🩺 TUN status + 📄 Open sing-box log để self-diagnose. Engine cũng auto-dump 50 dòng cuối sing-box.log vào app log khi sing-box exit bất thường.\n\nTab Browser Profiles mới (sidebar 🧭): Chrome multi-session độc lập, mỗi session 1 user-data-dir riêng (cookie / login / extension không share) gắn 1 proxy. Dùng làm tool diagnostic verify proxy hoạt động trước khi pin process."
 }

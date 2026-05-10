@@ -1,7 +1,7 @@
 {
-  "version": "1.1.0",
-  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.0/VsisProxy-Setup-1.1.0.exe",
-  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.0/VsisProxy-1.1.0.zip",
-  "releasedAt": "2026-05-09",
-  "notes": "v1.1.0 — Quản lý Game / App qua TUN engine\n\nTab mới 'Quản lý Game / App':\n- Route từng PC process (game, browser, app riêng) qua proxy theo process_name\n- Powered by sing-box 1.13.11 + wintun 0.14.1 (TUN-based, gigabit speed, 1 TCP state machine)\n- Process picker với search + ẩn process hệ thống mặc định\n- Bind proxy profile cho từng process — cùng UI picker dialog với emu\n- Hot-restart engine khi đổi binding\n\nDùng cho: PC game không có proxy native (Genshin, LoL launcher, MMO...), browser cần multi-proxy session, automation script không support auth, app trong VMware guest...\n\nTất cả chức năng v1.0.x giữ nguyên (ADB inject cho emu, leak prevention, auto-check proxy, port collision detection)."
+  "version": "1.1.1",
+  "downloadUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.1/VsisProxy-Setup-1.1.1.exe",
+  "downloadZipUrl": "https://github.com/vsisnet/vsisproxy-emulator-releases/releases/download/v1.1.1/VsisProxy-1.1.1.zip",
+  "releasedAt": "2026-05-10",
+  "notes": "v1.1.1 — Hotfix: ProcessPickerDialog crash\n\nFix: app tự tắt khi bấm 'Thêm process' ở tab Quản lý Game / App. Nguyên nhân: XAML loader fire Checked event của 'Ẩn process hệ thống' checkbox trước khi DataGrid init xong → NullReferenceException → app crash.\n\nNếu đang dùng v1.1.0, hãy update lên 1.1.1 để dùng tính năng Game / App."
 }

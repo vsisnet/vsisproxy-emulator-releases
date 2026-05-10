@@ -58,12 +58,28 @@ Cả 2 chế độ đều **hot-apply** ngay — không cần Stop / Start engin
 
 ### Quản lý giả lập
 - **Auto detect** LDPlayer 4/5/9, NoxPlayer, MEmu, BlueStacks 5 — đọc tên thật từ `leidian{N}.config` cho LDPlayer
-- **Auto-enable ADB Debug** cho LDPlayer: watcher tự bật `basicSettings.adbDebug=1` + tự reboot instance đang chạy để config có hiệu lực ngay
+- **Hỗ trợ tới 100 emu LDPlayer** mỗi lúc (port range 5555..5753) — discovery parallel TCP probe <1s
+- **Auto-enable ADB Debug** cho mọi LDPlayer instance ngay khi app mở: watcher rescan 15s ghi `basicSettings.adbDebug=1` cho tất cả `leidian{N}.config` trên mọi install, kèm `FileSystemWatcher` cho config mới — emu mở sau không cần reboot
+- **Stored bindings auto-apply lần đầu**: proxy đã pin từ session trước được ADB-push ngay khi mở app, không cần Stop/Start engine để nudge
 - **Hot-apply binding**: chọn proxy từ picker dialog (search + sortable list) → tự áp dụng ADB `settings put global http_proxy host:port`, không cần Stop/Start engine
 - **Auto-assign proxy** round-robin: 1 click chia đều proxies cho các emulator online
 - **Show offline filter**: ẩn các emu stale trong ADB cache mặc định
-- **Status pill** Online xanh / Offline đỏ
+- **Status pill** Online xanh / Offline đỏ / Port conflict vàng
 - **Per-row Stop button** unbind proxy
+
+### Quản lý Game / App PC (TUN engine)
+- **Pin từng process Windows qua proxy**: chrome.exe, firefox.exe, game launcher, app bất kỳ → traffic của riêng process đó đi qua proxy chỉ định, các app khác giữ nguyên
+- **Sing-box 1.13.11 + wintun 0.14.1** kernel-level TUN, gVisor TCP/IP stack userspace
+- **Auto QUIC blocker**: tự thêm Windows Firewall rule chặn UDP/443 khi engine chạy → Chrome/Firefox fallback TCP HTTP/2 trong <1s, bỏ rule khi Stop
+- **DNS hijack** qua sing-box internal resolver (1.1.1.1) — không leak DNS host khi TUN active
+- **IPv6 reject** cho process pinned — ép fallback IPv4 qua proxy
+- **Process picker dialog** từ `Win32_Process` snapshot
+
+### Browser Profiles (Chrome multi-session)
+- **Mỗi profile = 1 Chrome session độc lập**: cookie / login / extensions / lịch sử riêng (`--user-data-dir` per profile), gắn 1 proxy qua `--proxy-server` Chrome native flag
+- **Multi-launch song song**: 5 profile = 5 cửa sổ Chrome, mỗi cái 1 IP khác nhau, không xung đột
+- **Launch ↔ Stop toggle button**: 1 nút duy nhất trên mỗi row — click khi Stopped để mở Chrome, click khi Running (label đổi thành ■ Stop) để kill cả process tree (parent + 10+ renderer children atomic, không leave orphan)
+- **Auto-detect status** mỗi 10s qua WMI command-line probe — đóng Chrome bằng X cũng tự sync UI
 
 ### Leak prevention (WinDivert)
 - **Block DNS / QUIC / ICMP**: drop outbound UDP/53, TCP/53, TCP/853 (DoT), UDP/443 (HTTP/3) từ emu PIDs + ICMP unconditional
@@ -109,9 +125,9 @@ Cả 2 chế độ đều **hot-apply** ngay — không cần Stop / Start engin
 
 Cài đặt 1 click với wizard tiếng Việt — tự tạo shortcut + đăng ký Add/Remove Programs.
 
-**[⬇ Tải VsisProxy-Setup-1.1.1.exe](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-Setup-1.1.1.exe)**
+**[⬇ Tải VsisProxy-Setup-1.1.3.exe](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-Setup-1.1.3.exe)**
 
-1. Tải file `VsisProxy-Setup-1.1.1.exe` từ link trên
+1. Tải file `VsisProxy-Setup-1.1.3.exe` từ link trên
 2. Right-click → **Run as administrator**
 3. Theo wizard cài đặt (chọn ngôn ngữ Tiếng Việt nếu thích)
 4. Chọn folder cài (mặc định `C:\Program Files\VsisProxy\`)
@@ -128,9 +144,9 @@ Không cần quyền cài đặt vào Program Files — giải nén ra ổ bất
 - Cần copy app sang máy khác qua USB
 - Không có quyền Administrator để cài (nhưng vẫn cần admin để chạy app vì WinDivert)
 
-**[⬇ Tải VsisProxy-1.1.1.zip](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-1.1.1.zip)**
+**[⬇ Tải VsisProxy-1.1.3.zip](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-1.1.3.zip)**
 
-1. Tải file `VsisProxy-1.1.1.zip`
+1. Tải file `VsisProxy-1.1.3.zip`
 2. Giải nén ra folder bất kỳ (ví dụ `D:\Tools\VsisProxy\`)
 3. Right-click `VsisProxy.App.exe` → **Run as administrator**
 4. Update sau này: tải zip mới, giải nén đè lên (đóng app trước)
@@ -165,6 +181,17 @@ VsisProxy Emulator là **miễn phí cho cộng đồng**. Nếu tool giúp đư
 - `version.json` — manifest đọc bởi in-app update checker (auto cập nhật khi push commit)
 - `vX.Y.Z/` — full publish output cho từng version (browseable trên GitHub)
 - `Releases tab` — chứa file installer `.exe` + portable `.zip` cho mỗi version
+
+## 📝 Lịch sử version
+
+| Version | Highlight |
+|---|---|
+| **1.1.3** | Hỗ trợ tới 100 emu LDPlayer (port range 5555..5753) • Fix Local Proxy không tự gắn lần đầu (`StartupBootAsync` push ADB ngay sau discover) • ADB watcher rescan 60s → 15s • UI Game/App rename `Start TUN Engine` → `Start Proxy` • Browser tab Launch ↔ Stop toggle với atomic process-tree kill |
+| 1.1.2 | Fix TUN engine cho chrome/firefox: 5 lỗi config sing-box 1.13 (legacy `sniff` field, UDP-not-supported reject silent, DNS hijack rỗng, `detour:direct` deprecated, IPv6 svchost loop) • Browser Profiles tab mới (sidebar 🧭) • QuicBlocker firewall rule UDP/443 |
+| 1.1.1 | Hotfix `ProcessPickerDialog` NRE crash khi mở dialog "Thêm process" |
+| 1.1.0 | Tab Quản lý Game / App: pin từng process Windows qua proxy via sing-box + wintun TUN engine |
+| 1.0.2 | Multi-engine LDPlayer support (VBox UUID disambiguation), port-collision detection, auto-check proxy |
+| 1.0.1 | First public release
 
 ## 📜 License
 

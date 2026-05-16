@@ -125,9 +125,9 @@ Cả 2 chế độ đều **hot-apply** ngay — không cần Stop / Start engin
 
 Cài đặt 1 click với wizard tiếng Việt — tự tạo shortcut + đăng ký Add/Remove Programs.
 
-**[⬇ Tải VsisProxy-Setup-1.1.4.exe](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-Setup-1.1.4.exe)**
+**[⬇ Tải VsisProxy-Setup-1.1.5.exe](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-Setup-1.1.5.exe)**
 
-1. Tải file `VsisProxy-Setup-1.1.4.exe` từ link trên
+1. Tải file `VsisProxy-Setup-1.1.5.exe` từ link trên
 2. Right-click → **Run as administrator**
 3. Theo wizard cài đặt (chọn ngôn ngữ Tiếng Việt nếu thích)
 4. Chọn folder cài (mặc định `C:\Program Files\VsisProxy\`)
@@ -144,9 +144,9 @@ Không cần quyền cài đặt vào Program Files — giải nén ra ổ bất
 - Cần copy app sang máy khác qua USB
 - Không có quyền Administrator để cài (nhưng vẫn cần admin để chạy app vì WinDivert)
 
-**[⬇ Tải VsisProxy-1.1.4.zip](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-1.1.4.zip)**
+**[⬇ Tải VsisProxy-1.1.5.zip](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-1.1.5.zip)**
 
-1. Tải file `VsisProxy-1.1.4.zip`
+1. Tải file `VsisProxy-1.1.5.zip`
 2. Giải nén ra folder bất kỳ (ví dụ `D:\Tools\VsisProxy\`)
 3. Right-click `VsisProxy.App.exe` → **Run as administrator**
 4. Update sau này: tải zip mới, giải nén đè lên (đóng app trước)
@@ -186,7 +186,8 @@ VsisProxy Emulator là **miễn phí cho cộng đồng**. Nếu tool giúp đư
 
 | Version | Highlight |
 |---|---|
-| **1.1.4** | In-place updater: cập nhật 1 click không cần chạy lại installer • Sidebar `Kiểm tra cập nhật` ẩn mặc định, chỉ hiện `🎉 Phiên bản mới X.Y.Z` khi có update • Bundled `VsisProxy.Updater.exe` tự download zip + giải nén + ghi đè + relaunch main app |
+| **1.1.5** | Import Proxy dialog redesign: header tiêu đề + DataGrid kết quả Check proxy realtime (Status pill 5 màu + Latency) + button spacing đẹp • Close warning trigger broader: bất kỳ khi có proxy trong list → popup cảnh báo proxy sẽ ngừng (không cần emu pinned) • Sidebar `Phiên bản: X.Y.Z` bind dynamic từ assembly version, không còn hardcode |
+| 1.1.4 | In-place updater: cập nhật 1 click không cần chạy lại installer • Sidebar `Kiểm tra cập nhật` ẩn mặc định, chỉ hiện `🎉 Phiên bản mới X.Y.Z` khi có update • Bundled `VsisProxy.Updater.exe` tự download zip + giải nén + ghi đè + relaunch main app |
 | 1.1.3 | Hỗ trợ tới 100 emu LDPlayer (port range 5555..5753) • Fix Local Proxy không tự gắn lần đầu (`StartupBootAsync` push ADB ngay sau discover) • ADB watcher rescan 60s → 15s • UI Game/App rename `Start TUN Engine` → `Start Proxy` • Browser tab Launch ↔ Stop toggle với atomic process-tree kill |
 | 1.1.2 | Fix TUN engine cho chrome/firefox: 5 lỗi config sing-box 1.13 (legacy `sniff` field, UDP-not-supported reject silent, DNS hijack rỗng, `detour:direct` deprecated, IPv6 svchost loop) • Browser Profiles tab mới (sidebar 🧭) • QuicBlocker firewall rule UDP/443 |
 | 1.1.1 | Hotfix `ProcessPickerDialog` NRE crash khi mở dialog "Thêm process" |

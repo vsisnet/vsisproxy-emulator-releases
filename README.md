@@ -2,7 +2,34 @@
 
 Tool Windows gắn proxy HTTP/SOCKS5 cho các giả lập Android (LDPlayer, NoxPlayer, MEmu, BlueStacks) **không cần app thứ ba bên trong giả lập**, không cần WinDivert TCP redirect — proxy được inject thẳng vào Android system property qua ADB.
 
-> **Tải bản mới nhất:** [Releases](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest)
+---
+
+## 📦 Bản mới nhất: **v1.1.5** _(2026-05-16)_
+
+| Cài đặt | Portable |
+|---|---|
+| **[⬇ VsisProxy-Setup-1.1.5.exe](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-Setup-1.1.5.exe)** _(17 MB)_ | **[⬇ VsisProxy-1.1.5.zip](https://github.com/vsisnet/vsisproxy-emulator-releases/releases/latest/download/VsisProxy-1.1.5.zip)** _(21 MB)_ |
+| Inno Setup wizard + Add/Remove Programs | Giải nén ra ổ bất kỳ, không cài |
+
+> 💡 **Đã cài v1.1.4 trở lên?** Mở app, đợi 2s — sidebar sẽ tự hiện nút **🎉 Phiên bản mới 1.1.5**. Click 1 phát → updater tự download + ghi đè + relaunch app, **không cần chạy installer nữa**.
+
+### Có gì mới ở v1.1.5
+
+- **Import Proxy dialog redesign**: header rõ ràng, button spacing đẹp, DataGrid kết quả Check proxy realtime với status pill 5 màu (Pending → Checking → Alive / Dead / Timeout) + latency mỗi proxy
+- **Close warning broader**: đóng app khi đang có local proxy server chạy ngầm → popup cảnh báo (trước đó chỉ warn khi có emu pinned, bỏ sót case external tool đang dùng `127.0.0.1:port`)
+- **Sidebar version label dynamic**: bind từ assembly metadata thay vì hardcode → mỗi release tự đúng
+
+### Có gì mới gần đây
+
+| Version | Ngày | Tóm tắt |
+|---|---|---|
+| 1.1.5 | 2026-05-16 | Import dialog UI + Check proxy realtime list + close warning broader + version label dynamic |
+| 1.1.4 | 2026-05-16 | **In-place updater** — click 1 nút để cập nhật, không phải chạy lại installer |
+| 1.1.3 | 2026-05-10 | Hỗ trợ tới 100 emu LDPlayer (port range 5555..5753) + fix Local Proxy không tự gắn lần đầu |
+| 1.1.2 | 2026-05-10 | Fix TUN engine cho chrome/firefox (5 lỗi config sing-box 1.13) + Browser Profiles tab |
+| 1.1.0 | 2026-05-10 | Tab Quản lý Game / App: pin từng process Windows qua proxy (sing-box + wintun TUN) |
+
+📜 Changelog đầy đủ ở dưới — xem [📝 Lịch sử version](#-lịch-sử-version).
 
 ---
 
@@ -87,8 +114,9 @@ Cả 2 chế độ đều **hot-apply** ngay — không cần Stop / Start engin
 - Đảm bảo IP của host không lộ qua các đường vòng
 
 ### Cập nhật + tài liệu
-- **Auto update checker**: 2s sau khi mở app, im lặng nếu OK, dialog báo có version mới
-- **Manual check** qua sidebar "⬆ Kiểm tra cập nhật"
+- **In-place updater (v1.1.4+)**: nút `🎉 Phiên bản mới X.Y.Z` chỉ xuất hiện trên sidebar khi có version mới. Click 1 phát → main app đóng, updater nhỏ tự download zip + giải nén + ghi đè + relaunch app — không phải chạy lại installer wizard
+- **Auto check** sau 2s khi mở app, im lặng nếu đã ở bản mới nhất
+- **Close warning**: hiển thị cảnh báo khi đóng app trong lúc có local proxy server / emu binding / TUN engine / Browser session đang chạy
 - **Hard exit watchdog**: app không bị zombie sau khi đóng
 
 ---
@@ -133,7 +161,7 @@ Cài đặt 1 click với wizard tiếng Việt — tự tạo shortcut + đăng
 4. Chọn folder cài (mặc định `C:\Program Files\VsisProxy\`)
 5. Tick "Tạo shortcut Desktop" nếu muốn
 6. Bấm Cài đặt → khi xong tick "Khởi chạy VsisProxy Emulator" → Finish
-7. Cập nhật phiên bản mới: chạy installer mới, tự ghi đè bản cũ, không mất config
+7. **Cập nhật phiên bản mới**: từ v1.1.4 trở đi không cần chạy installer nữa — mở app, đợi 2s, sidebar tự hiện nút `🎉 Phiên bản mới X.Y.Z` → click → đợi ~30s là xong (bundled `VsisProxy.Updater.exe` lo phần còn lại)
 
 **Gỡ cài**: Settings → Apps → "VsisProxy Emulator" → Uninstall (sẽ xoá luôn `%APPDATA%\VsisProxy\` chứa config + log).
 
@@ -149,7 +177,7 @@ Không cần quyền cài đặt vào Program Files — giải nén ra ổ bất
 1. Tải file `VsisProxy-1.1.5.zip`
 2. Giải nén ra folder bất kỳ (ví dụ `D:\Tools\VsisProxy\`)
 3. Right-click `VsisProxy.App.exe` → **Run as administrator**
-4. Update sau này: tải zip mới, giải nén đè lên (đóng app trước)
+4. **Update sau này** (v1.1.4+): bundled `VsisProxy.Updater.exe` đã nằm trong zip → mở app, click nút `🎉 Phiên bản mới X.Y.Z` trên sidebar khi xuất hiện → updater tự download + ghi đè + relaunch. Không cần tải zip thủ công nữa.
 
 > ⚠️ Cả 2 cách đều **bắt buộc Run as administrator** — WinDivert64.sys driver cần admin để load. Nếu chạy không-admin, các tính năng leak prevention sẽ tắt nhưng ADB inject vẫn work.
 
